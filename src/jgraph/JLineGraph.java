@@ -1,4 +1,4 @@
-package jPlot;
+package jgraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.*;
  */
 
 
-public class JPlotXY extends JComponent {
+public class JLineGraph extends JComponent {
 
 
     private static final int PANEL_MARGIN = 30;
@@ -23,7 +23,7 @@ public class JPlotXY extends JComponent {
     private Color lineColor;
     private int lineWidth;
 
-    public JPlotXY(long[] xValues, long[] yValues, String plotName, int w, int h) {
+    public JLineGraph(long[] xValues, long[] yValues, String plotName, int w, int h) {
         super();
         this.xValues = xValues;
         this.yValues = yValues;
