@@ -37,8 +37,8 @@ public class JPlotXY extends JComponent {
         rangeY = getMax(yValues) - getMin(yValues);
 
 
-        plotW = w - 2 * PANEL_MARGIN;
-        plotH = h - 2 * PANEL_MARGIN;
+        plotW = (int) (w - 2.9 * PANEL_MARGIN);
+        plotH = (int) (h - 3.9 * PANEL_MARGIN);
 
         lineColor = Color.red;
         lineWidth = 3;

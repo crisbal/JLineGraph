@@ -1,0 +1,16 @@
+This is a custom Java Swing Component you can use to draw really simple line graphs. 
+
+This was done for a school assignment.
+
+Check out the example java file to see how to use the component. It is really easy. 
+
+
+TODO:
+
+Sort by x the array
+
+Maybe switch to ArrayList
+
+Add value indicator
+
+Maybe add a grid
