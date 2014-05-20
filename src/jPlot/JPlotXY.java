@@ -2,7 +2,6 @@ package jPlot;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.QuadCurve2D;
 
 /**
  * Created by cris9696 on 5/20/14.
@@ -13,16 +12,13 @@ public class JPlotXY extends JComponent {
 
 
     private static final int PANEL_MARGIN = 30;
-
+    private final int nOfItems;
     private int h, w;
     private int[] xValues;
     private int[] yValues;
     private String plotName;
-
-    private int plotW,plotH;
-    private int rangeX,rangeY;
-
-    private final int nOfItems;
+    private int plotW, plotH;
+    private int rangeX, rangeY;
 
 
     public JPlotXY(int[] xValues, int[] yValues, String plotName, int w, int h) {
@@ -35,13 +31,12 @@ public class JPlotXY extends JComponent {
 
         nOfItems = xValues.length;
 
-        rangeX = getMax(xValues)-getMin(xValues);
-        rangeY = getMax(yValues)-getMin(yValues);
+        rangeX = getMax(xValues) - getMin(xValues);
+        rangeY = getMax(yValues) - getMin(yValues);
 
 
-
-        plotW = w -2*PANEL_MARGIN;
-        plotH = h -2*PANEL_MARGIN;
+        plotW = w - 2 * PANEL_MARGIN;
+        plotH = h - 2 * PANEL_MARGIN;
     }
 
     public Dimension getPreferredSize() {
@@ -50,37 +45,36 @@ public class JPlotXY extends JComponent {
 
     public void paintComponent(Graphics g1) {
         super.paintComponent(g1);
-        Graphics2D g = (Graphics2D)g1;
+        Graphics2D g = (Graphics2D) g1;
 
         g.setColor(Color.black);
         g.drawLine(PANEL_MARGIN, PANEL_MARGIN, PANEL_MARGIN, h - PANEL_MARGIN * 2);
         g.drawLine(PANEL_MARGIN, h - PANEL_MARGIN * 2, w - PANEL_MARGIN, h - PANEL_MARGIN * 2);
         g.drawString(plotName, PANEL_MARGIN, h - PANEL_MARGIN);
 
-        for(int i=1;i<nOfItems;i++)
-        {
+        for (int i = 1; i < nOfItems; i++) {
             g.setColor(Color.red);
-            g.setStroke(new BasicStroke(4));
+            g.setStroke(new BasicStroke(3));
 
-            int prevX = xValues[i-1] - getMin(xValues);
-            int currX = xValues[i] - getMin(xValues);
+            int prevX = xValues[i - 1];
+            int currX = xValues[i];
 
-            int drawPrevX = (int) (double) ((prevX*plotW)/rangeX);
-            int drawCurrX = (int) (double) ((currX*plotW)/rangeX);
+            int prevXatZero = prevX - getMin(xValues);
+            int currXatZero = currX - getMin(xValues);
 
-            g.drawLine(drawPrevX + PANEL_MARGIN ,
-                    h-yValues[i-1]-PANEL_MARGIN*2,
+            int drawPrevX = (prevXatZero * plotW) / rangeX;   //it was THAT simple
+            int drawCurrX = (currXatZero * plotW) / rangeX;
+
+            g.drawLine(drawPrevX + PANEL_MARGIN,
+                    h - yValues[i - 1] - PANEL_MARGIN * 2,
                     drawCurrX + PANEL_MARGIN,
-                    h-yValues[i]-PANEL_MARGIN*2);
+                    h - yValues[i] - PANEL_MARGIN * 2);
 
             g.setColor(Color.black);
             g.setStroke(new BasicStroke(1));
 
-
-            g.drawLine(drawPrevX + PANEL_MARGIN,
-                    0+PANEL_MARGIN*2,
-                    drawPrevX + PANEL_MARGIN,
-                    h-PANEL_MARGIN*2);
+            g.drawString(prevX + "", drawPrevX + PANEL_MARGIN, h - PANEL_MARGIN * 2 + 15);
+            g.drawString(currX + "", drawCurrX + PANEL_MARGIN, h - PANEL_MARGIN * 2 + 15);
 
         }
     }
